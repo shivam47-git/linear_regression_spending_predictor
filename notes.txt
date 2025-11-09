@@ -1,0 +1,133 @@
+our prject requires various libraries to work so here is the easy one line command to setup all the libraries with ease.
+
+pip install pandas matplotlib seaborn scikit-learn statsmodels scipy
+
+
+
+Project Summary
+This project uses linear regression to analyze and predict the yearly spending of e-commerce customers based on their behavior and characteristics. The dataset includes features like average session length, time spent on the app, time spent on the website, and length of membership. The goal is to help the company decide whether to focus on improving their website or mobile app experience.
+
+Steps:
+Data Loading & Exploration:
+
+Loaded the dataset using pandas.
+Explored the data with info, describe, and head methods.
+Visualization:
+
+Used seaborn and matplotlib to visualize relationships between features and yearly spending.
+Found that length of membership and time on app have the strongest correlation with yearly spending.
+Data Preparation:
+
+Selected relevant features as predictors (X) and yearly amount spent as the target (y).
+Split the data into training and testing sets.
+Model Training:
+
+Trained a linear regression model using scikit-learn.
+Also used statsmodels for a detailed statistical summary.
+Evaluation:
+
+Predicted test data and visualized predictions.
+Calculated error metrics: Mean Absolute Error, Mean Squared Error, and Root Mean Squared Error.
+Analyzed residuals to check model assumptions.
+Conclusion:
+
+Length of membership is the most important factor for predicting yearly spending.
+Time spent on the app is more influential than time spent on the website.
+The company should focus on improving the app experience.
+Script to Memorize and Explain
+“In this project, I analyzed e-commerce customer data to predict yearly spending using linear regression. I started by loading and exploring the dataset, which contains features like session length, time on app, time on website, and membership length.
+
+I visualized the data and found that the length of membership and time spent on the app are most strongly correlated with how much a customer spends per year.
+
+I then prepared the data, split it into training and testing sets, and trained a linear regression model. I used both scikit-learn and statsmodels to get a detailed understanding of the model’s performance and coefficients.
+
+After making predictions, I evaluated the model using error metrics and checked the residuals to ensure the model’s validity.
+
+The results showed that the length of membership is the most important predictor, followed by time on the app. Time spent on the website had little impact.
+
+My recommendation is that the company should focus on improving the app experience to increase customer spending.”
+
+
+
+
+
+============================
+Code Explanation
+============================
+
+1. Importing Libraries
+	- `pandas as pd`: For handling data (reading CSV, DataFrames)
+	- `matplotlib.pyplot as plt`: For plotting graphs
+	- `seaborn as sns`: For advanced, pretty plots
+	- `pathlib.Path`: For working with file paths
+
+2. Loading the Data
+	- Tries to find the dataset (`Ecommerce Customers.csv`) in the same folder as the script
+	- If found, loads the data into a DataFrame called `customers`
+	- If not found, raises an error
+
+3. Exploring the Data
+	- `customers.head()`: Shows the first few rows
+	- `customers.info()`: Shows info about columns and data types
+	- `customers.describe()`: Shows summary statistics (mean, std, etc)
+
+4. Visualizing Relationships
+	- Uses seaborn to plot relationships between features and the target (`Yearly Amount Spent`):
+	  - `jointplot` for Time on Website vs Yearly Amount Spent
+	  - `jointplot` for Time on App vs Yearly Amount Spent
+	  - `pairplot` for all features
+	  - `lmplot` for Length of Membership vs Yearly Amount Spent
+
+5. Preparing Data for Machine Learning
+	- Selects features (`X`) and target (`y`)
+	- Splits data into training and testing sets (70% train, 30% test)
+
+6. Training the Linear Regression Model
+	- Creates a `LinearRegression` object
+	- Fits the model on the training data
+	- Prints the coefficients (weights for each feature)
+	- Prints the R² score (how well the model fits the data)
+
+7. Statsmodels OLS Regression (Optional)
+	- Adds a constant to the features (for intercept)
+	- Fits an Ordinary Least Squares (OLS) regression using statsmodels
+	- Prints a detailed summary (coefficients, p-values, etc)
+
+8. Making Predictions
+	- Uses the trained model to predict on the test set
+	- Plots actual vs predicted values
+
+9. Evaluating the Model
+	- Calculates Mean Absolute Error (MAE), Mean Squared Error (MSE), and Root Mean Squared Error (RMSE)
+	- These metrics show how far off the predictions are from the actual values
+
+10. Residual Analysis
+	 - Calculates residuals (difference between actual and predicted)
+	 - Plots the distribution of residuals to check if errors are normally distributed
+	 - Plots a probability plot to visually check normality
+
+============================
+How It All Comes Together
+============================
+
+- Load and explore the data to understand what you're working with
+- Visualize relationships to get intuition about which features might be important
+- Prepare the data for machine learning by selecting features and splitting into train/test sets
+- Train a linear regression model to predict yearly spending
+- Evaluate the model using metrics and plots to see how well it performs
+- Analyze residuals to check if the model's errors are random (a good sign)
+
+============================
+Revision Script for Presentation
+============================
+
+1. First, I import all the necessary libraries for data handling, plotting, and machine learning.
+2. I load the dataset from a CSV file using pandas. If the file isn't found, the script throws an error.
+3. I explore the data using `.head()`, `.info()`, and `.describe()` to understand its structure and summary statistics.
+4. I use seaborn to visualize relationships between features and the target variable, which helps me see which features might be important for prediction.
+5. I select the relevant features and the target, then split the data into training and testing sets.
+6. I create and train a linear regression model using scikit-learn, then print out the coefficients and the R² score to see how well the model fits.
+7. I also use statsmodels to fit an OLS regression and print a detailed summary for more statistical insight.
+8. I make predictions on the test set and plot the actual vs predicted values to visually check model performance.
+9. I calculate error metrics like MAE, MSE, and RMSE to quantify how accurate the predictions are.
+10. Finally, I analyze the residuals by plotting their distribution and a probability plot to check if the errors are normally distributed, which is a good sign for linear regression.
