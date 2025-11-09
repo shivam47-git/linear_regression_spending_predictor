@@ -63,8 +63,8 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 # Load data and train model functions
-def load_data_from_file(uploaded_file=None):
-    """Load data from uploaded file or default location"""
+def load_data_from_file(uploaded_file):
+    """Load data from uploaded file"""
     if uploaded_file is not None:
         try:
             # Check file extension
@@ -75,12 +75,6 @@ def load_data_from_file(uploaded_file=None):
         except Exception as e:
             st.error(f"Error reading file: {str(e)}")
             return None
-    
-    # Try to load default dataset
-    base_dir = Path(__file__).resolve().parent
-    for _p in [base_dir / 'Ecommerce Customers', base_dir / 'Ecommerce Customers.csv']:
-        if _p.exists():
-            return pd.read_csv(_p)
     return None
 
 def detect_columns(customers):
@@ -141,12 +135,36 @@ def train_model(customers, feature_cols, target_col):
     
     return lm, X_train, X_test, y_train, y_test, predictions, metrics
 
-# Load data
+# Check if file is uploaded
+if uploaded_file is None:
+    # Show welcome screen when no file is uploaded
+    st.info("📁 **Please upload a CSV or Excel file to begin the analysis.**")
+    st.markdown("""
+    ### How to use:
+    1. Use the file uploader in the sidebar (left side)
+    2. Select a CSV or Excel file (.csv, .xlsx, .xls)
+    3. The app will automatically:
+       - Detect feature and target columns
+       - Train a linear regression model
+       - Generate all analysis graphs
+       - Display results in the navigation pages
+    
+    ### Requirements:
+    - Your file should contain numeric columns
+    - At least one column should be suitable as a target variable
+    - The app will automatically detect columns with keywords like: 'spent', 'amount', 'price', 'cost', 'value', 'target', 'y', 'output'
+    """)
+    st.stop()
+
+# Load data only if file is uploaded
 customers = load_data_from_file(uploaded_file)
 
 if customers is None:
-    st.error("❌ No dataset found. Please upload a CSV or Excel file, or ensure 'Ecommerce Customers.csv' exists in the project directory.")
+    st.error("❌ Error loading file. Please check your file format and try again.")
     st.stop()
+
+# Show success message
+st.success(f"✅ File loaded successfully! Dataset has {len(customers)} rows and {len(customers.columns)} columns.")
 
 # Detect columns
 feature_cols, target_col = detect_columns(customers)
