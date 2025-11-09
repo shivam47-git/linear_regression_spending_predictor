@@ -4,6 +4,11 @@ import seaborn as sns
 from pathlib import Path
 
 
+# Set matplotlib backend to Agg (required for deployment)
+import matplotlib
+matplotlib.use('Agg')
+
+
 base_dir = Path(__file__).resolve().parent
 for _p in [base_dir / 'Ecommerce Customers', base_dir / 'Ecommerce Customers.csv']:
 	if _p.exists():
